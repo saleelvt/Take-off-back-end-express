@@ -1,18 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.adminController = void 0;
-const adminGetProjectById_1 = require("./adminGetProjectById");
 const adminLogin_1 = require("./adminLogin");
-const adminAddProject_1 = require("./adminAddProject");
-const getProjects_1 = require("./getProjects");
-const deleteProjectById_1 = require("./deleteProjectById");
+const adminAddMembership_1 = require("./adminAddMembership");
+const getMembership_1 = require("./getMembership");
+const adminUpdateMembership_1 = require("./adminUpdateMembership");
+const adminGetMembershipById_1 = require("./adminGetMembershipById");
+const deleteMembershipById_1 = require("./deleteMembershipById");
 const adminController = (dependencies) => {
     return {
         loginAdmin: (0, adminLogin_1.loginAdminController)(dependencies),
-        adminAddProject: (0, adminAddProject_1.adminAddProjectController)(dependencies),
-        getProjects: (0, getProjects_1.adminGetProjectController)(dependencies),
-        getProjectById: (0, adminGetProjectById_1.adminGetSingleProjectController)(dependencies),
-        deleteProjectById: (0, deleteProjectById_1.adminDeleteProjectController)(dependencies),
+        adminAddMemberShip: (0, adminAddMembership_1.adminAddMemberShipController)(dependencies),
+        getMemberShip: (0, getMembership_1.adminGetMemberShipController)(dependencies),
+        getMemberShipById: (0, adminGetMembershipById_1.adminGetMembershipByIdController)(dependencies),
+        deleteMembershipById: (0, deleteMembershipById_1.adminDeleteMembershipByIdController)(dependencies),
+        updateMemberShipById: (0, adminUpdateMembership_1.adminUpdateMemberShipByIdController)(dependencies),
     };
 };
 exports.adminController = adminController;

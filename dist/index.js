@@ -13,11 +13,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.insertAdmin = void 0;
 require("module-alias/register");
 const db_1 = require("./boot/db");
 const dotenv_1 = __importDefault(require("dotenv"));
+const adminSchema_1 = require("./infrastructure/database/models/adminSchema");
 const server_1 = __importDefault(require("@/presentation/server"));
 dotenv_1.default.config(); // Load environment variables
+// Function to initialize an admin (example)
+const insertAdmin = () => __awaiter(void 0, void 0, void 0, function* () {
+    const sampleAdmin = {
+        userName: "takeoff",
+        email: "takeoffcaravan@gmail.com",
+        password: "admin@takeoff",
+    };
+    // Insert logic for saving admin to the database if required here
+    try {
+        const existingAdmin = yield adminSchema_1.Admin.findOne({
+            email: sampleAdmin.email
+        });
+        if (!existingAdmin) {
+            const newAdmin = new adminSchema_1.Admin(sampleAdmin);
+            yield newAdmin.save();
+            console.log("this is the admin now ", newAdmin);
+        }
+        else {
+            console.log(" ADMIN ALLREDY EXISTED  ");
+        }
+    }
+    catch (error) {
+        console.error("Failed to insert sample admin:", error);
+    }
+});
+exports.insertAdmin = insertAdmin;
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log("Initializing server and database connection...");
@@ -43,4 +71,4 @@ dotenv_1.default.config(); // Load environment variables
         }));
     }
 }))();
-// insertAdmin()
+(0, exports.insertAdmin)();

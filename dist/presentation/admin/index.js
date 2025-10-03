@@ -15,7 +15,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./controllers/adminLogin"), exports);
-__exportStar(require("./controllers/adminAddProject"), exports);
-__exportStar(require("./controllers/adminAddProject"), exports);
-__exportStar(require("./controllers/adminGetProjectById"), exports);
-__exportStar(require("./controllers/deleteProjectById"), exports);
+__exportStar(require("./controllers/adminAddMembership"), exports);
+__exportStar(require("./controllers/adminAddMembership"), exports);
+__exportStar(require("./controllers/adminGetMembershipById"), exports);
+__exportStar(require("./controllers/deleteMembershipById"), exports);

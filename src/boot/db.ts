@@ -7,9 +7,9 @@ export const db = async () => {
     const mongoosURL: any = process.env.mongoosURL;
 
     await mongoose.connect(mongoosURL.trim());
-    console.log(" connect it done");
+    console.log("after the connect it done");
   } catch (error) {
-    console.error("Db cnnection failed");
+    console.error("data basejj cnnection failed");
     console.error(error);
     process.exit(1);
   }

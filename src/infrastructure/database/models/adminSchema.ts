@@ -1,35 +1,34 @@
 import { AdminEntity } from "@/domain/entities";
+import mongoose, { Model, Schema } from "mongoose";
 
-import { model,Schema } from "mongoose";
-
-const adminSchema = new Schema<AdminEntity>({
-
+const adminSchema = new Schema<AdminEntity>(
+  {
     userName: {
-        type: String,
-        required: true,
-      },
-      email: {
-        type: String,
-        required: true,
-        unique: true,
-      },
-      password: {
-        type: String,
-        required: true,
-      },
-      role: {
-        type: String,
-        enum: ["user", "admin", "salon"],
-        default: "admin",
-      },
-      userList:[{ type: Schema.Types.ObjectId, ref: "User" }],
-    //   salonList:{ type: Schema.Types.ObjectId, ref: "Theater" }]
+      type: String,
+      required: true,
     },
-    {
-        timestamps: true,
-      }
-     
-)
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin", "salon"],
+      default: "admin",
+    },
+    userList: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-
-export const Admin=model<AdminEntity>("Admin",adminSchema)
+// Better typing approach
+export const Admin: Model<AdminEntity> = 
+  (mongoose.models.Admin as Model<AdminEntity>) || 
+  mongoose.model<AdminEntity>("Admin", adminSchema);

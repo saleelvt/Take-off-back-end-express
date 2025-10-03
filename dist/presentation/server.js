@@ -15,7 +15,7 @@ const app = (0, express_1.default)();
 const allowedOrigin = process.env.CLIENT_URL;
 // CORS options
 const corsOptions = {
-    origin: ['http://localhost:5173', 'brandbik.com', 'http://localhost:3000', 'https://brandbik-admin-react.vercel.app'],
+    origin: ['http://localhost:5173', 'https://www.takeoffbusinessnetwork.com', 'http://localhost:3000', 'https://take-off-mu.vercel.app'],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 };
