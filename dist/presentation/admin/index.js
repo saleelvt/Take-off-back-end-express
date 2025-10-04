@@ -19,3 +19,5 @@ __exportStar(require("./controllers/adminAddMembership"), exports);
 __exportStar(require("./controllers/adminAddMembership"), exports);
 __exportStar(require("./controllers/adminGetMembershipById"), exports);
 __exportStar(require("./controllers/deleteMembershipById"), exports);
+__exportStar(require("./controllers/verfied-members/add-member"), exports);
+__exportStar(require("./controllers/verfied-members/get-members"), exports);

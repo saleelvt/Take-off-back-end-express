@@ -3,3 +3,13 @@ export * from "./controllers/adminAddMembership"
 export * from "./controllers/adminAddMembership"
 export * from "./controllers/adminGetMembershipById"
 export * from "./controllers/deleteMembershipById"
+
+export * from "./controllers/verfied-members/add-member"
+export * from "./controllers/verfied-members/get-members"
+export * from "./controllers/verfied-members/delete-member"
+export * from "./controllers/verfied-members/update-member"
+
+export * from "./controllers/banner/add-banner"
+export * from "./controllers/banner/get-banner"
+export * from "./controllers/banner/update-banner"
+export * from "./controllers/banner/delete-banner"

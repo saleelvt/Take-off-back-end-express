@@ -19,7 +19,6 @@ dotenv_1.default.config();
 const db = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const mongoosURL = process.env.mongoosURL;
-        console.log("my db url", mongoosURL);
         yield mongoose_1.default.connect(mongoosURL.trim());
         console.log("after the connect it done");
     }

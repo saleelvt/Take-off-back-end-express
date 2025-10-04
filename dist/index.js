@@ -13,39 +13,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertAdmin = void 0;
 require("module-alias/register");
 const db_1 = require("./boot/db");
 const dotenv_1 = __importDefault(require("dotenv"));
-const adminSchema_1 = require("./infrastructure/database/models/adminSchema");
 const server_1 = __importDefault(require("@/presentation/server"));
 dotenv_1.default.config(); // Load environment variables
-// Function to initialize an admin (example)
-const insertAdmin = () => __awaiter(void 0, void 0, void 0, function* () {
-    const sampleAdmin = {
-        userName: "takeoff",
-        email: "takeoffcaravan@gmail.com",
-        password: "admin@takeoff",
-    };
-    // Insert logic for saving admin to the database if required here
-    try {
-        const existingAdmin = yield adminSchema_1.Admin.findOne({
-            email: sampleAdmin.email
-        });
-        if (!existingAdmin) {
-            const newAdmin = new adminSchema_1.Admin(sampleAdmin);
-            yield newAdmin.save();
-            console.log("this is the admin now ", newAdmin);
-        }
-        else {
-            console.log(" ADMIN ALLREDY EXISTED  ");
-        }
-    }
-    catch (error) {
-        console.error("Failed to insert sample admin:", error);
-    }
-});
-exports.insertAdmin = insertAdmin;
+// export const insertAdmin = async () => {
+//   const sampleAdmin = {
+//     userName: "takeoff",
+//     email: "takeoffcaravan@gmail.com",
+//     password: "admin@takeoff",
+//   };
+//   // Insert logic for saving admin to the database if required here
+//   try {
+//   const existingAdmin = await (Admin as mongoose.Model<AdminEntity>).findOne({ 
+//   email: sampleAdmin.email 
+// });
+//     if (!existingAdmin) {
+//       const newAdmin = new Admin(sampleAdmin);
+//       await newAdmin.save();
+//       console.log("this is the admin now ", newAdmin);
+//     } else {
+//       console.log(" ADMIN ALLREDY EXISTED  ");
+//     }
+//   }  catch (error) {
+//     console.error("Failed to insert sample admin:", error);
+//   }
+// };
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log("Initializing server and database connection...");
@@ -57,8 +51,9 @@ exports.insertAdmin = insertAdmin;
             process.exit(0); // Exit on DB connection failure
         });
         // Start the server
-        server_1.default.listen(Number(process.env.PORT) || 1001, () => {
-            console.log(`Server started on port ${process.env.PORT || 1001}`);
+        const PORT = Number(process.env.PORT) || 3000;
+        server_1.default.listen(PORT, '0.0.0.0', () => {
+            console.log(`Server running on port ${PORT}`);
         });
     }
     catch (error) {
@@ -71,4 +66,4 @@ exports.insertAdmin = insertAdmin;
         }));
     }
 }))();
-(0, exports.insertAdmin)();
+// insertAdmin()
