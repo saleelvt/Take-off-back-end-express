@@ -6,11 +6,12 @@ import dotenv from "dotenv";
 
 import app from "@/presentation/server";
 
+
 dotenv.config(); // Load environment variables
 
 
 
-// Function to initialize an admin (example)
+
 // export const insertAdmin = async () => {
 //   const sampleAdmin = {
 //     userName: "takeoff",
@@ -45,11 +46,11 @@ dotenv.config(); // Load environment variables
         console.error("Error while connecting MongoDB", error);
         process.exit(0); // Exit on DB connection failure
       });
-    // Start the server
-    app.listen(Number(process.env.PORT) || 1001, () => {
-      console.log(`Server started on port ${process.env.PORT || 1001}`);
-    });
-
+// Start the server
+const PORT = Number(process.env.PORT) || 3000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+});
   } catch (error: any) {
     console.log("Error on start up: ", error);
   } finally {
