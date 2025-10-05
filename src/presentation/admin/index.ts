@@ -13,3 +13,8 @@ export * from "./controllers/banner/add-banner"
 export * from "./controllers/banner/get-banner"
 export * from "./controllers/banner/update-banner"
 export * from "./controllers/banner/delete-banner"
+
+export * from "./controllers/events/add-event"
+export * from "./controllers/events/delete-event"
+export * from "./controllers/events/get-events"
+export * from "./controllers/events/update-event"

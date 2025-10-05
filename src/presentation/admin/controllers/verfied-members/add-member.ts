@@ -14,7 +14,8 @@ export const adminAddMemberController = (dependencies: IAdminDependencies) => {
                 email,
                 phone,
                 website,
-                discount
+                discount,
+                linkedIn
             } = req.body;
 
             // Create a new document
@@ -27,6 +28,7 @@ export const adminAddMemberController = (dependencies: IAdminDependencies) => {
                 email,
                 phone,
                 website,
+                linkedIn,
                 discount
             });
 

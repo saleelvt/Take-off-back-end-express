@@ -9,6 +9,7 @@ export interface IBusinessCard extends Document {
   email: string;
   phone: string;
   website: string;
+  linkedIn: string;
   discount: string;
 }
 
@@ -20,8 +21,9 @@ const BusinessCardSchema = new Schema<IBusinessCard>({
   location: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },
-  website: { type: String, required: true },
-  discount: { type: String, required: true }
+  website: { type: String, required: false },
+  linkedIn: { type: String, required: false },
+  discount: { type: String, required: false }
 });
 
 export const VerifiedMembership = model<IBusinessCard>('VerifiedMembership', BusinessCardSchema);
