@@ -9,28 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminGetMemberController = void 0;
-const verifiedMemberSchema_1 = require("@/infrastructure/database/models/verifiedMemberSchema");
-const adminGetMemberController = (dependencies) => {
+exports.adminGetBannerController = void 0;
+const bannerSchema_1 = require("@/infrastructure/database/models/bannerSchema");
+const adminGetBannerController = (dependencies) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || 10;
-            const skip = (page - 1) * limit;
-            const verifiedMembers = yield verifiedMemberSchema_1.VerifiedMembership.find()
-                .sort({ createdAt: -1 })
-                .skip(skip)
-                .limit(limit);
-            const total = yield verifiedMemberSchema_1.VerifiedMembership.countDocuments();
+            const verifiedMembers = yield bannerSchema_1.Banner.find();
+            if (verifiedMembers.length == 0) {
+                res.status(404).json({
+                    success: false,
+                    message: "banner not found"
+                });
+            }
             res.status(200).json({
                 success: true,
                 data: verifiedMembers,
-                pagination: {
-                    total,
-                    page,
-                    limit,
-                    totalPages: Math.ceil(total / limit)
-                }
             });
         }
         catch (error) {
@@ -39,4 +32,4 @@ const adminGetMemberController = (dependencies) => {
         }
     });
 };
-exports.adminGetMemberController = adminGetMemberController;
+exports.adminGetBannerController = adminGetBannerController;

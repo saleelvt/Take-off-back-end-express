@@ -9,34 +9,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminGetMemberController = void 0;
-const verifiedMemberSchema_1 = require("@/infrastructure/database/models/verifiedMemberSchema");
-const adminGetMemberController = (dependencies) => {
+exports.adminDeleteBannerController = void 0;
+const bannerSchema_1 = require("@/infrastructure/database/models/bannerSchema");
+const adminDeleteBannerController = (dependencies) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || 10;
-            const skip = (page - 1) * limit;
-            const verifiedMembers = yield verifiedMemberSchema_1.VerifiedMembership.find()
-                .sort({ createdAt: -1 })
-                .skip(skip)
-                .limit(limit);
-            const total = yield verifiedMemberSchema_1.VerifiedMembership.countDocuments();
+            const { id } = req.params;
+            if (!id) {
+                res.status(400).json({
+                    success: false,
+                    message: "Banner ID is required"
+                });
+                return;
+            }
+            const deletedBanner = yield bannerSchema_1.Banner.findByIdAndDelete(id);
+            if (!deletedBanner) {
+                res.status(404).json({
+                    success: false,
+                    message: "Verified Banner not found"
+                });
+                return;
+            }
             res.status(200).json({
                 success: true,
-                data: verifiedMembers,
-                pagination: {
-                    total,
-                    page,
-                    limit,
-                    totalPages: Math.ceil(total / limit)
-                }
+                message: "Verified Banner deleted successfully",
+                data: deletedBanner
             });
         }
         catch (error) {
-            console.error("❌ Failed to fetch verified members:", error);
+            console.error("❌ Failed to delete verified Banner:", error);
             next(error);
         }
     });
 };
-exports.adminGetMemberController = adminGetMemberController;
+exports.adminDeleteBannerController = adminDeleteBannerController;

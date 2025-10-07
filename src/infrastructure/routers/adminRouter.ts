@@ -5,7 +5,7 @@ import { Router } from 'express';
 
 
 export const adminRoutes = (dependencies: IAdminDependencies) => {
-    const {loginAdmin,adminAddMemberShip,getMemberShip,getMemberShipById,deleteMembershipById,updateMemberShipById,adminAddMember,getMember,updateMember,deleteMember,searchMembers,adminAddBanner,getBanner,updateBanner,deleteBanner,adminAddEvent,getEvents,updateEvent,deleteEvent,adminAddFounderProfile,getFounderProfiles,updateFounderProfile,deleteFounderProfile } = adminController(dependencies);
+    const {loginAdmin,adminAddMemberShip,getMemberShip,getMemberShipById,deleteMembershipById,updateMemberShipById,adminAddMember,getMember,updateMember,deleteMember,searchMembers,adminAddBanner,getBanner,updateBanner,deleteBanner,adminAddEvent,getEvents,updateEvent,deleteEvent,adminAddFounderProfile,getFounderProfiles,updateFounderProfile,deleteFounderProfile,getDashboard } = adminController(dependencies);
     const router = Router();
     router.route("/login").post(loginAdmin); 
     router.route("/add-membership").post(adminAddMemberShip)
@@ -35,5 +35,9 @@ export const adminRoutes = (dependencies: IAdminDependencies) => {
       router.route("/get-founderProfiles").get(getFounderProfiles);
       router.route("/update-founderProfile/:id").put( upload.single('image'),updateFounderProfile);
       router.route("/delete-founderProfile/:id").delete(deleteFounderProfile);
+     
+     // dashboard
+     router.route("/get-dashboard").get(getDashboard);
+     
     return router;
 };

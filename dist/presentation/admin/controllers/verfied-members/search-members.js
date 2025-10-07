@@ -9,34 +9,53 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminGetMemberController = void 0;
+exports.adminSearchMembersController = void 0;
 const verifiedMemberSchema_1 = require("@/infrastructure/database/models/verifiedMemberSchema");
-const adminGetMemberController = (dependencies) => {
+const adminSearchMembersController = (dependencies) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 10;
             const skip = (page - 1) * limit;
-            const verifiedMembers = yield verifiedMemberSchema_1.VerifiedMembership.find()
+            const { name, company, industry } = req.query;
+            // Build search query
+            const searchQuery = {};
+            if (name) {
+                searchQuery.name = { $regex: name, $options: 'i' };
+            }
+            if (company) {
+                searchQuery.company = { $regex: company, $options: 'i' };
+            }
+            if (industry) {
+                searchQuery.industry = { $regex: industry, $options: 'i' };
+            }
+            // If no search parameters provided, return all members
+            const searchCriteria = Object.keys(searchQuery).length > 0 ? searchQuery : {};
+            const members = yield verifiedMemberSchema_1.VerifiedMembership.find(searchCriteria)
                 .sort({ createdAt: -1 })
                 .skip(skip)
                 .limit(limit);
-            const total = yield verifiedMemberSchema_1.VerifiedMembership.countDocuments();
+            const total = yield verifiedMemberSchema_1.VerifiedMembership.countDocuments(searchCriteria);
             res.status(200).json({
                 success: true,
-                data: verifiedMembers,
+                data: members,
                 pagination: {
                     total,
                     page,
                     limit,
                     totalPages: Math.ceil(total / limit)
+                },
+                searchCriteria: {
+                    name: name || null,
+                    company: company || null,
+                    industry: industry || null
                 }
             });
         }
         catch (error) {
-            console.error("❌ Failed to fetch verified members:", error);
+            console.error("❌ Failed to search members:", error);
             next(error);
         }
     });
 };
-exports.adminGetMemberController = adminGetMemberController;
+exports.adminSearchMembersController = adminSearchMembersController;

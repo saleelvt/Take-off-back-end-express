@@ -23,6 +23,7 @@ import { adminAddFounderProfileController } from "./founder-profiles/add-founder
 import { adminGetFounderProfilesController } from "./founder-profiles/get-founderProfiles";
 import { adminEditFounderProfileController } from "./founder-profiles/update-founderProfile";
 import { adminDeleteFounderProfileController } from "./founder-profiles/delete-founderProfile";
+import { adminDashboardController } from "./dashboard";
 
 
 
@@ -59,6 +60,9 @@ export const adminController = (dependencies: IAdminDependencies) => {
          getFounderProfiles: adminGetFounderProfilesController(dependencies),    
          updateFounderProfile: adminEditFounderProfileController(dependencies),
          deleteFounderProfile: adminDeleteFounderProfileController(dependencies),
+
+         // dashboard
+         getDashboard: adminDashboardController(dependencies),
 
     };
 };

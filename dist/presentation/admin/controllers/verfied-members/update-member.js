@@ -9,14 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminAddMemberController = void 0;
+exports.adminEditMemberController = void 0;
 const verifiedMemberSchema_1 = require("@/infrastructure/database/models/verifiedMemberSchema");
-const adminAddMemberController = (dependencies) => {
+const adminEditMemberController = (dependencies) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { name, title, company, industry, location, email, phone, website, discount, linkedIn } = req.body;
-            // Create a new document
-            const newMember = new verifiedMemberSchema_1.VerifiedMembership({
+            const { id } = req.params;
+            const { name, title, company, industry, location, email, phone, website, discount } = req.body;
+            if (!id) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Member ID is required"
+                });
+            }
+            // Find and update the member
+            const updatedMember = yield verifiedMemberSchema_1.VerifiedMembership.findByIdAndUpdate(id, {
                 name,
                 title,
                 company,
@@ -25,19 +32,25 @@ const adminAddMemberController = (dependencies) => {
                 email,
                 phone,
                 website,
-                linkedIn,
                 discount
+            }, {
+                new: true, // Return the updated document
+                runValidators: true // Run schema validators
             });
-            // Save to database
-            const savedMember = yield newMember.save();
-            return res.status(201).json({
+            if (!updatedMember) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Verified member not found"
+                });
+            }
+            return res.status(200).json({
                 success: true,
-                message: "Membership created successfully!",
-                data: savedMember
+                message: "Member updated successfully!",
+                data: updatedMember
             });
         }
         catch (error) {
-            console.error("❌ Failed to create membership:", error);
+            console.error("❌ Failed to update member:", error);
             // Handle duplicate email error
             if (error.code === 11000) {
                 return res.status(400).json({
@@ -50,4 +63,4 @@ const adminAddMemberController = (dependencies) => {
         }
     });
 };
-exports.adminAddMemberController = adminAddMemberController;
+exports.adminEditMemberController = adminEditMemberController;

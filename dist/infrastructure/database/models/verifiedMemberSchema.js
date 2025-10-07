@@ -10,7 +10,8 @@ const BusinessCardSchema = new mongoose_1.Schema({
     location: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
-    website: { type: String, required: true },
-    discount: { type: String, required: true }
+    website: { type: String, required: false },
+    linkedIn: { type: String, required: false },
+    discount: { type: String, required: false }
 });
 exports.VerifiedMembership = (0, mongoose_1.model)('VerifiedMembership', BusinessCardSchema);
