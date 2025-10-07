@@ -13,7 +13,7 @@ const allowedOrigin = process.env.CLIENT_URL;
 
 // CORS options
 const corsOptions = {
-  origin: ['http://localhost:5173','https://www.takeoffbusinessnetwork.com','http://localhost:3000','https://take-off-mu.vercel.app,https://take-off-front-end-react.vercel.app'],
+  origin: ['http://localhost:5173','https://www.takeoffbusinessnetwork.com','http://localhost:3000','https://take-off-mu.vercel.app', 'https://take-off-front-end-react.vercel.app'],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
